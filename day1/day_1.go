@@ -22,11 +22,17 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 	biggest := 0
+	biggest2 := 0
+	biggest3 := 0
 	actual := 0
 	for scanner.Scan() {
 		if len(scanner.Text()) == 0 {
 			if actual > biggest {
-				biggest = actual
+				biggest, biggest2, biggest3 = actual, biggest, biggest2
+			} else if actual > biggest2 {
+				biggest2, biggest3 = actual, biggest2
+			} else if actual > biggest3 {
+				biggest3 = actual
 			}
 			actual = 0
 		} else {
@@ -37,5 +43,5 @@ func main() {
 			actual += int(nb)
 		}
 	}
-	fmt.Println(biggest)
+	fmt.Println("First Part : \nBiggest Elf have ", biggest, " calories\nSecond Part : \nThree biggest elves have ", biggest+biggest2+biggest3, " calories")
 }
