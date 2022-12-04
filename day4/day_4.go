@@ -22,6 +22,7 @@ func main() {
 	}()
 
 	nb_of_pairs := 0
+	nb_of_overlap := 0
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		assignements := strings.FieldsFunc(scanner.Text(), Split)
@@ -31,12 +32,15 @@ func main() {
 		b2, _ := strconv.ParseInt(assignements[3], 10, 64)
 
 		if (a1 <= a2 && b1 >= b2) || (a2 <= a1 && b2 >= b1) {
-			fmt.Println(assignements[0], assignements[1], assignements[2], assignements[3])
 			nb_of_pairs++
+		}
+		if (a1 <= a2 && b1 >= a2) || (a2 <= a1 && b2 >= a1) {
+			nb_of_overlap++
 		}
 
 	}
 	fmt.Println("Part 1 : \nThe number of pairs is", nb_of_pairs)
+	fmt.Println("Part 1 : \nThe number of overlap is", nb_of_overlap)
 
 }
 
