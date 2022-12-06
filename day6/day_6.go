@@ -37,7 +37,7 @@ Exit:
 		}
 	}
 
-	fmt.Println("Part 1 : \nThe sum of the priorities is", marker+1)
+	fmt.Println("Part 1 : \nThe first marker is ", marker+1)
 	// fmt.Println("Part 2 : \nThe sum of the priorities is", priorities_sum_mart_two)
 
 }
