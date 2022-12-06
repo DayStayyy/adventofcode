@@ -20,24 +20,45 @@ func main() {
 		}
 	}()
 
-	marker := 0
+	marker_one := 0
+	marker_two := 0
+	marker_one_is_good := true
+	marker_two_is_good := true
 	scanner := bufio.NewScanner(file)
 Exit:
 	for scanner.Scan() {
 		phrase := scanner.Text()
 		for index, _ := range phrase {
-			for i := 0; i < 4; i++ {
+			marker_one_is_good = true
+			marker_two_is_good = true
+
+			if index+14 > len(phrase) {
+				break
+			}
+			if index+3 >= len(phrase) {
+				break
+			}
+
+			for i := 0; i < 14; i++ {
 				if strings.Count(phrase[index:index+4], string(phrase[index+i])) != 1 {
-					break
-				} else if i == 3 {
-					marker = index + 3
+					marker_one_is_good = false
+				} else if i == 3 && marker_one == 0 && marker_one_is_good {
+					marker_one = index + 3
+				}
+
+				if strings.Count(phrase[index:index+14], string(phrase[index+i])) != 1 {
+					marker_two_is_good = false
+					if !marker_two_is_good && !marker_one_is_good {
+						break
+					}
+				} else if i == 13 && marker_two_is_good {
+					marker_two = index + 13
 					continue Exit
 				}
 			}
 		}
 	}
 
-	fmt.Println("Part 1 : \nThe first marker is ", marker+1)
-	// fmt.Println("Part 2 : \nThe sum of the priorities is", priorities_sum_mart_two)
-
+	fmt.Println("Part 1 : \nThe first marker is ", marker_one+1)
+	fmt.Println("Part 1 : \nThe Second marker is ", marker_two+1)
 }
